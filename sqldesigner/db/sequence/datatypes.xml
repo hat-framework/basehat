@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<datatypes db="mysql">
+    <group label="Obrigatórios" color="rgb(238,238,170)">
+            <type label="Página"    length="0" sql="page"/>
+            <type label="Título"    length="1" sql="title"/>
+            <type label="Descrição" length="0" sql="description"/>
+            <type label="Permissão" length="0" sql="permission"/>
+    </group>
+</datatypes>

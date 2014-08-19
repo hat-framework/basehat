@@ -1,0 +1,21 @@
+{
+    "name": "hatframework/basehat",
+    "type": "library",
+    "description": "Hat configuration files",
+    "keywords": [],
+    "homepage": "https://github.com/hat-framework/basehat",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thompson Filgueiras",
+            "email": "thom@hat-framework.org",
+            "homepage": "http://hat-framework.org",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "php": ">=5.3.0"
+    }
+}

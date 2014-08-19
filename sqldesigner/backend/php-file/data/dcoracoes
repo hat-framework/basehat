@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, http://code.google.com/p/wwwsqldesigner/ -->
+<!-- Active URL: http://rf/static/gerador/sqldesigner/ -->
+<sql>
+<datatypes db="mysql">
+	<group label="Numeric" color="rgb(238,238,170)">
+		<type label="Integer" length="0" sql="INT" re="INT" quote=""/>
+		<type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
+		<type label="Single precision" length="0" sql="FLOAT" quote=""/>
+		<type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+	</group>
+
+	<group label="Character" color="rgb(255,200,200)">
+		<type label="Char" length="1" sql="CHAR" quote="'"/>
+		<type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
+		<type label="Text" length="0" sql="TEXT" re="TEXT" quote="'"/>
+		<type label="Binary" length="1" sql="BINARY" quote="'"/>
+		<type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
+		<type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
+	</group>
+
+	<group label="Date &amp; Time" color="rgb(200,255,200)">
+		<type label="Date" length="0" sql="DATE" quote="'"/>
+		<type label="Time" length="0" sql="TIME" quote="'"/>
+		<type label="Datetime" length="0" sql="DATETIME" quote="'"/>
+		<type label="Year" length="0" sql="YEAR" quote=""/>
+		<type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
+	</group>
+	
+	<group label="Miscellaneous" color="rgb(200,200,255)">
+		<type label="ENUM" length="1" sql="ENUM" quote=""/>
+		<type label="SET" length="1" sql="SET" quote=""/>
+		<type label="Bit" length="0" sql="bit" quote=""/>
+	</group>
+</datatypes><table x="865" y="390" name="(dcoracoes) Produto">
+<row name="cod" null="0" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+</row>
+<row name="Código" null="0" autoincrement="0">
+<datatype>VARCHAR(11)</datatype>
+</row>
+<row name="Opção" null="0" autoincrement="0">
+<datatype>INT(5)</datatype>
+<default>1</default></row>
+<row name="Nome" null="0" autoincrement="0">
+<datatype>VARCHAR(64)</datatype>
+</row>
+<row name="Descrição" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="Estoque" null="0" autoincrement="0">
+<datatype>INT(10)</datatype>
+</row>
+<row name="Preço" null="0" autoincrement="0">
+<datatype>DECIMAL(8,2)</datatype>
+</row>
+<row name="Características" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="593" y="168" name="(dcoracoes) Pedido">
+<row name="Status" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(dcoracoes) Status" row="cod" />
+</row>
+<row name="cod" null="0" autoincrement="1">
+<datatype>INT(11)</datatype>
+</row>
+<row name="Revendedora" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<row name="Data" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<row name="Total" null="0" autoincrement="0">
+<datatype>DECIMAL(15,2)</datatype>
+</row>
+<row name="Cupom" null="0" autoincrement="0">
+<datatype>VARCHAR(24)</datatype>
+<relation table="(dcoracoes) Cupom" row="cod" />
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="300" y="406" name="(dcoracoes) Cupom">
+<row name="cod" null="0" autoincrement="0">
+<datatype>VARCHAR(24)</datatype>
+</row>
+<row name="usado" null="0" autoincrement="0">
+<datatype>ENUM(s,n)</datatype>
+<default>n</default></row>
+<row name="Data Criação" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="Data Uso" null="1" autoincrement="0">
+<datatype>DATETIME</datatype>
+<default>NULL</default></row>
+<row name="valor" null="1" autoincrement="0">
+<datatype>DECIMAL(11,2)</datatype>
+<default>NULL</default></row>
+<row name="Criado Por" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<row name="DonoCupom" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="839" y="186" name="(dcoracoes) LimiteRegional">
+<row name="uf" null="0" autoincrement="1">
+<datatype>INT(11)</datatype>
+</row>
+<row name="limite" null="0" autoincrement="0">
+<datatype>DECIMAL(15,2)</datatype>
+<default>200.00</default></row>
+<key type="PRIMARY" name="">
+<part>uf</part>
+</key>
+</table>
+<table x="605" y="366" name="(dcoracoes) Item">
+<row name="Pedido" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(dcoracoes) Pedido" row="cod" />
+</row>
+<row name="Produto" null="0" autoincrement="0">
+<datatype>VARCHAR(20)</datatype>
+<relation table="(dcoracoes) Produto" row="cod" />
+</row>
+<row name="Quantidade" null="0" autoincrement="0">
+<datatype>INT</datatype>
+<default>1</default></row>
+<row name="Total" null="0" autoincrement="0">
+<datatype>DECIMAL(10,2)</datatype>
+<default>0</default></row>
+<key type="PRIMARY" name="">
+<part>Pedido</part>
+<part>Produto</part>
+</key>
+</table>
+<table x="296" y="286" name="(Usuário) Login">
+<row name="cod" null="0" autoincrement="1">
+<datatype>INT(11)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="295" y="76" name="(dcoracoes) Movimentação">
+<row name="cod" null="1" autoincrement="1">
+<datatype>INT</datatype>
+<default>NULL</default></row>
+<row name="Pedido" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(dcoracoes) Pedido" row="cod" />
+</row>
+<row name="data" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>CURRENT_TIMESTAMP</default></row>
+<row name="texto" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="Autor" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="599" y="70" name="(dcoracoes) Status">
+<row name="cod" null="0" autoincrement="1">
+<datatype>INT(11)</datatype>
+</row>
+<row name="nome" null="0" autoincrement="0">
+<datatype>VARCHAR(32)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="44" y="74" name="(Usuário) Endereço">
+<row name="cod" null="1" autoincrement="1">
+<datatype>INT</datatype>
+<default>NULL</default></row>
+<row name="Login" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<row name="Cep" null="0" autoincrement="0">
+<datatype>INT(8)</datatype>
+</row>
+<row name="Rua" null="0" autoincrement="0">
+<datatype>VARCHAR(256)</datatype>
+</row>
+<row name="Número" null="0" autoincrement="0">
+<datatype>VARCHAR(10)</datatype>
+</row>
+<row name="Bairro" null="0" autoincrement="0">
+<datatype>VARCHAR(64)</datatype>
+</row>
+<row name="Cidade" null="1" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>NULL</default></row>
+<row name="Estado" null="0" autoincrement="0">
+<datatype>VARCHAR(2)</datatype>
+</row>
+<row name="Padrão" null="0" autoincrement="0">
+<datatype>ENUM(s,n)</datatype>
+<default>n</default></row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="40" y="462" name="(Usuário)Telefone">
+<row name="cod" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+</row>
+<row name="Login" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<row name="Número" null="0" autoincrement="0">
+<datatype>INT(13)</datatype>
+</row>
+<row name="TipoTelefone" null="1" autoincrement="0">
+<datatype>INT</datatype>
+<default>NULL</default><relation table="(Usuário) TipoTelefone" row="cod" />
+</row>
+<row name="Padrao" null="0" autoincrement="0">
+<datatype>ENUM(s,n)</datatype>
+<default>n</default></row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="42" y="323" name="(Usuário) Email">
+<row name="cod" null="1" autoincrement="1">
+<datatype>INT</datatype>
+<default>NULL</default></row>
+<row name="Login" null="0" autoincrement="0">
+<datatype>INT(11)</datatype>
+<relation table="(Usuário) Login" row="cod" />
+</row>
+<row name="email" null="0" autoincrement="0">
+<datatype>VARCHAR(64)</datatype>
+</row>
+<row name="Padrão" null="0" autoincrement="0">
+<datatype>ENUM(s,n)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+<table x="12" y="619" name="(Usuário) TipoTelefone">
+<row name="cod" null="1" autoincrement="1">
+<datatype>INT</datatype>
+<default>NULL</default></row>
+<row name="tipo" null="0" autoincrement="0">
+<datatype>VARCHAR(32)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>cod</part>
+</key>
+</table>
+</sql>
