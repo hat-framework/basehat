@@ -4,4 +4,3 @@
     if(!defined('TEMPLATE_ADMIN')) define('TEMPLATE_ADMIN' , 'area-admin');
     //if(!defined('TEMPLATE_ADMIN')) define('TEMPLATE_ADMIN' , 'ppdh');
     if(!defined('DISABLE_EXTERN_CSS')) define('DISABLE_EXTERN_CSS' , 'n');
- ?>
