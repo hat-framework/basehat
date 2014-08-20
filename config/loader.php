@@ -5,7 +5,8 @@ require_once (dirname(__FILE__) . "/config.php");
 
 
 require_once (dirname(__FILE__) ."/urls.php");
-if(file_exists(CONFIG_SUBDOMAIN . "config.php"))require_once (CONFIG_SUBDOMAIN . "config.php"); else require_once ('geral.php');
+if(file_exists(CONFIG_SUBDOMAIN . "config.php"))require_once (CONFIG_SUBDOMAIN . "config.php"); else require_once ('conf.php');
+if(file_exists(CONFIG_SUBDOMAIN . "geral.php")) require_once (CONFIG_SUBDOMAIN . "geral.php"); else require_once ('geral.php');
 if(file_exists(CONFIG_SUBDOMAIN . "crypt.php")) require_once (CONFIG_SUBDOMAIN . "crypt.php");  else require_once ('crypt.php');
 if(file_exists(CONFIG_SUBDOMAIN . "info.php"))  require_once (CONFIG_SUBDOMAIN . "info.php");   else require_once ('site.php');
 require_once ("geral.php");
