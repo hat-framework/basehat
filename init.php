@@ -1,5 +1,8 @@
 <?php
 
+$template = filter_input(INPUT_GET, '_template');
+if($template != "" && !defined("CURRENT_TEMPLATE")){define('CURRENT_TEMPLATE', $template);}
+
 $temp = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
 $file = dirname(__FILE__).$temp."autoload.php";
 use classes\Classes\Object;
