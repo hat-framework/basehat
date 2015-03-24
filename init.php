@@ -39,9 +39,6 @@ if (!defined('DIR_SUB_DOMAIN')) define('DIR_SUB_DOMAIN', "p".DIRECTORY_SEPARATOR
 if(defined('is_admin') && is_admin) require_once(BASE_DIR . "/vendor/hatframework/basehat/config/siteAdmin.php");
 require_once(BASE_DIR . "/vendor/hatframework/basehat/config/loader.php");
 \classes\Classes\Registered::init(require_once (DIR_BASIC.'registered.php'));
-
-//seta o timezone do servidor
-date_default_timezone_set('America/Sao_Paulo');
     
 ini_set('default_charset',CHARSET);
 //$obj = new Object();
