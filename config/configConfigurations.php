@@ -232,32 +232,33 @@ class configConfigurations extends \classes\Classes\Options{
         return $this->files;
     }
     
-    private function FindTemplates(){
-        $blocked = array('Config', 'area-admin');
-        $this->LoadResource('files/dir', 'dobj');
-        $out    = array();
-        $pastas = array_keys(\classes\Classes\Registered::getAllTemplatesLocation());
-        if(!empty($pastas)){
-            foreach($pastas as $pasta){
-                if(in_array($pasta, $blocked)) continue;
-                $out[] = "'$pasta' => '".  ucfirst($pasta)."'";
+            private function FindTemplates(){
+                $blocked = array('Config', 'area-admin');
+                $this->LoadResource('files/dir', 'dobj');
+                $out    = array();
+                $pastas = array_keys(\classes\Classes\Registered::getAllTemplatesLocation());
+                if(!empty($pastas)){
+                    foreach($pastas as $pasta){
+                        if(in_array($pasta, $blocked)) continue;
+                        $out[] = "'$pasta' => '".  ucfirst($pasta)."'";
+                    }
+                    $imp = implode(",",$out);
+                    $this->files['config/config']['configs']['TEMPLATE_DEFAULT']['type'] = 'enum';
+                    $this->files['config/config']['configs']['TEMPLATE_DEFAULT']['options'] = $imp;
+                }
             }
-            $imp = implode(",",$out);
-            $this->files['config/config']['configs']['TEMPLATE_DEFAULT']['type'] = 'enum';
-            $this->files['config/config']['configs']['TEMPLATE_DEFAULT']['options'] = $imp;
-        }
-    }
-    
-    private function GenCryptKey(){
-        if(function_exists('openssl_random_pseudo_bytes')){
-            $arr = (array)json_decode(classes\Utils\cache::get("CRYPT_KEYS"));
-            if($arr === false || empty($arr)){
-                $arr['__Crypty_base64key']     = \classes\Classes\crypt::gen_base64_key();
-                $arr['__Crypty_base64ivector'] = \classes\Classes\crypt::gen_base64_ivector();
-                classes\Utils\cache::create("CRYPT_KEYS", json_encode($arr));
+
+            private function GenCryptKey(){
+                if(function_exists('openssl_random_pseudo_bytes')){
+                    $arr = (array)unserialize(classes\Utils\cache::get("CRYPT_KEYS"));
+                    if($arr === false || empty($arr) || !isset($arr['__Crypty_base64key'])){
+                        $bool = true;
+                        $arr['__Crypty_base64key']     = \classes\Classes\crypt::gen_base64_key(24, $bool);
+                        $arr['__Crypty_base64ivector'] = \classes\Classes\crypt::gen_base64_ivector();
+                        classes\Utils\cache::create("CRYPT_KEYS", serialize($arr));
+                    }
+                    $this->files['config/crypt']['configs']['Crypty_base64key']['value']     =  $arr['__Crypty_base64key'];
+                    $this->files['config/crypt']['configs']['Crypty_base64ivector']['value'] =  $arr['__Crypty_base64ivector'];
+                }
             }
-            $this->files['config/crypt']['configs']['Crypty_base64key']['value']     =  $arr['__Crypty_base64key'];
-            $this->files['config/crypt']['configs']['Crypty_base64ivector']['value'] =  $arr['__Crypty_base64ivector'];
-        }
-    }
 }
