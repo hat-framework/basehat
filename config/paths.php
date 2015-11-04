@@ -10,7 +10,7 @@ define('GLOBALF'              , BASE_DIR  . 'vendor'.DS.'hatframework'.DS.'hatcl
 define('DIR_PROJECTS'        , 'p'.DS);
 define('DIR_FILES_RELATIVE'  , 'static'.DS.'files');
 define('DIR_FILES'           , DIR_BASIC . DIR_SUB_DOMAIN . DIR_FILES_RELATIVE.DS);
-define('DIR_IMAGENS'         , DIR_BASIC . DIR_FILES_RELATIVE.DS.'img'.DS);
+define('DIR_IMAGENS'         , DIR_BASIC . DIR_SUB_DOMAIN . DIR_FILES_RELATIVE.DS.'img'.DS);
 
 define('DIR_CACHE'           , DIR_FILES            . 'cache'.DS);
 define('DIR_LOG'             , DIR_FILES            . 'log'.DS);
