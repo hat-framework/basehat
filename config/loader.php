@@ -1,31 +1,53 @@
 <?php
 
-require_once (dirname(__FILE__) . "/paths.php");
-require_once (dirname(__FILE__) . "/config.php");
+$template = filter_input(INPUT_GET, '_template');
+if($template != "" && !defined("CURRENT_TEMPLATE")){define('CURRENT_TEMPLATE', $template);}
 
-
-require_once (dirname(__FILE__) ."/urls.php");
-if(file_exists(CONFIG_SUBDOMAIN . "config.php"))require_once (CONFIG_SUBDOMAIN . "config.php"); else require_once ('conf.php');
-if(file_exists(CONFIG_SUBDOMAIN . "geral.php")) require_once (CONFIG_SUBDOMAIN . "geral.php"); else require_once ('geral.php');
-if(file_exists(CONFIG_SUBDOMAIN . "crypt.php")) require_once (CONFIG_SUBDOMAIN . "crypt.php");  else require_once ('crypt.php');
-if(file_exists(CONFIG_SUBDOMAIN . "info.php"))  require_once (CONFIG_SUBDOMAIN . "info.php");   else require_once ('site.php');
-$ponteiro  = opendir(CONFIG_SUBDOMAIN);
-if($ponteiro !== false){
-    while ($listar = readdir($ponteiro)){
-        if(in_array($listar, array("..", ".", ".DS_Store", "config.php","geral.php","crypt.php","info.php"))) {continue;}
-        elseif(is_file(CONFIG_SUBDOMAIN . "/".$listar)) {
-            require_once (CONFIG_SUBDOMAIN."/$listar");
-        }
+$temp = DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR;
+$file = dirname(__FILE__).$temp."autoload.php";
+use classes\Classes\Object;
+if(file_exists($file)){require_once($file);}
+//usado para debugar o site para dispositivos mobile
+//if(!defined("MOBILE"))define("MOBILE", true);
+set_time_limit(0);
+if(!defined("is_amigavel")){ 
+    if(function_exists("apache_get_modules")){
+        define("is_amigavel", in_array("mod_rewrite", apache_get_modules())?true:false);
     }
 }
+    
+//inicia uma session
+session_start();
 
-require_once ("geral.php");
-require_once ("template.php");
+//define o modulo padrao caso tenha sido aplicado via session
+if(!defined("MODULE_DEFAULT") && isset($_SESSION['module_default'])) {define("MODULE_DEFAULT", $_SESSION['module_default']);}
 
-//require_once (SYSTEM    . 'Autoload.php');
-require_once (GLOBALF   . 'global_functions.php');
-require_once (GLOBALF   . 'debug.php');
-require_once (GLOBALF   . 'text.php');
-require_once (GLOBALF   . 'simple_curl.php');
-require_once (GLOBALF   . 'constants.php');
+//seta o nome do diretorio basico da aplicacao
+if (!defined('BASE_DIR')){
+    define('BASE_DIR', realpath(dirname(__FILE__)."{$temp}..".DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
+}
+if (!defined('DIR_BASIC')){
+    define('DIR_BASIC', BASE_DIR."Application".DIRECTORY_SEPARATOR);
+}
 
+//procura o subdomínio atual
+$e         = explode(".", $_SERVER['SERVER_NAME']);
+$subdomain = array_shift($e);
+if($subdomain == "www"){$subdomain = array_shift($e);}
+if (!defined('SUB_DOMAIN'))     define('SUB_DOMAIN'       , $subdomain);
+if (!defined('DIR_SUB_DOMAIN')) define('DIR_SUB_DOMAIN', "p".DIRECTORY_SEPARATOR.SUB_DOMAIN.DIRECTORY_SEPARATOR);
+
+//carrega o arquivo de configurações responsável por inicializar o sistema
+if(defined('is_admin') && is_admin) require_once(BASE_DIR . "/vendor/hatframework/basehat/config/siteAdmin.php");
+require_once(BASE_DIR . "/vendor/hatframework/basehat/config/loader.php");
+\classes\Classes\Registered::init(require_once (DIR_BASIC.'registered.php'));
+    
+ini_set('default_charset',CHARSET);
+//$obj = new Object();
+//$obj->LoadModel('usuario/login', 'uobj', true, true);
+if(!defined("DEBUG")) define('DEBUG', true);
+//if(!defined("DEBUG")) define('DEBUG', isset($_GET['debug'])?true:usuario_loginModel::IsWebmaster());
+
+//se está em modo de debug
+if(DEBUG) error_reporting(-1);
+else      error_reporting("NONE");
