@@ -31,7 +31,9 @@ if (!defined('DIR_BASIC')){
 }
 
 //procura o subdomínio atual
-$subdomain = @array_shift( explode(".", $_SERVER['SERVER_NAME']));
+$e         = explode(".", $_SERVER['SERVER_NAME']);
+$subdomain = array_shift($e);
+if($subdomain == "www"){$subdomain = array_shift($e);}
 if (!defined('SUB_DOMAIN'))     define('SUB_DOMAIN'       , $subdomain);
 if (!defined('DIR_SUB_DOMAIN')) define('DIR_SUB_DOMAIN', "p".DIRECTORY_SEPARATOR.SUB_DOMAIN.DIRECTORY_SEPARATOR);
 
