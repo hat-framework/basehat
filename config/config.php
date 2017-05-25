@@ -11,3 +11,4 @@ if(!defined("PROJECT")) define('PROJECT', $pj_name);
 
 //charset do site
 if(!defined("CHARSET")) define("CHARSET", "utf-8");
+
