@@ -1,5 +1,6 @@
 <?php
 
+if(!defined("APPLICATION_DIR")) define('APPLICATION_DIR', 'Application');
 $template = filter_input(INPUT_GET, '_template');
 if($template != "" && !defined("CURRENT_TEMPLATE")){define('CURRENT_TEMPLATE', $template);}
 
@@ -27,7 +28,7 @@ if (!defined('BASE_DIR')){
     define('BASE_DIR', realpath(dirname(__FILE__)."{$temp}..".DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
 }
 if (!defined('DIR_BASIC')){
-    define('DIR_BASIC', BASE_DIR."Application".DIRECTORY_SEPARATOR);
+    define('DIR_BASIC', BASE_DIR.APPLICATION_DIR.DIRECTORY_SEPARATOR);
 }
 
 //procura o subdomínio atual

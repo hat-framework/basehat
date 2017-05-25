@@ -2,7 +2,7 @@
 
 $dir   = str_replace("\\", "/", dirname(__FILE__));
 $doc   = str_replace("\\", "/", $_SERVER['DOCUMENT_ROOT']);
-$pj_name = str_replace(array($doc, "Application/config", "//", 'defines'), array("", "", "/", ""), $dir);
+$pj_name = str_replace(array($doc, APPLICATION_DIR."/config", "//", 'defines'), array("", "", "/", ""), $dir);
 $e = explode("vendor", $pj_name);
 $pj_name = array_shift($e);
 if($pj_name == "/") {$pj_name = "";}
