@@ -19,3 +19,4 @@ define('GERADOR'             , DIR_FILES            . 'gerador'.DS);
 define('SUBDOMAIN_RESOURCES' , DIR_CONFIG_SUBDOMAIN . 'resource'.DS);
 define('SUBDOMAIN_MODULOS'   , DIR_CONFIG_SUBDOMAIN . 'plugin'.DS);
 define('DIR_JS'              , BASE_DIR             . 'js'.DS);
+
