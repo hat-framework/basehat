@@ -1,6 +1,6 @@
 <?php
 
-if(!defined("APPLICATION_DIR")) define('APPLICATION_DIR', 'Application');
+if(!defined("APPLICATION_DIR")) {define('APPLICATION_DIR', 'Application');}
 $template = filter_input(INPUT_GET, '_template');
 if($template != "" && !defined("CURRENT_TEMPLATE")){define('CURRENT_TEMPLATE', $template);}
 
